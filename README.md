@@ -7,10 +7,11 @@
 
 # Requerimientos:
 
-- ✅Necesita mostar un input para buscar la pelicula y un boton para buscar.
+- ✅ Necesita mostar un input para buscar la pelicula y un boton para buscar.
 - ✅ Lista las peliculas encontradas y muestra e titulo, año y poster.
-- Que el formulario funcione.
-- Haz que las ppeliculas se muestreb eb un grid responsive.
+- ✅ Que el formulario funcione.
+- ✅ Haz que las ppeliculas se muestreb eb un grid responsive.
+- ✅ Hacer el fetching de datos.
 
 # Primera iteracionÑ:
 
