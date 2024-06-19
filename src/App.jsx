@@ -1,21 +1,36 @@
+import { useCallback } from "react";
 import { Movies } from "./components";
 import { useMovies, useSearch } from "./hooks";
+import debounce from "just-debounce-it";
 
 import "./App.css";
+import { useCallback, useState } from "react";
 
 function App() {
+  const [sort, setSort] = useState(false);
   const { search, error, updateSearch } = useSearch();
-  const { movies, loading, getMovies } = useMovies({ search });
+  const { movies, loading, getMovies } = useMovies({ search, sort });
+
+  const debounceGetMovies = useCallback(
+    debounce((search) => {
+      getMovies({ search });
+    }, 300),
+    [getMovies]
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    getMovies();
+    getMovies({ search });
+  };
+  const handleSort = () => {
+    setSort(!sort);
   };
 
   const handleChance = (e) => {
     const newQuery = e.target.value;
     if (newQuery.startsWith(" ")) return;
-    updateSearch(e.target.value);
+    updateSearch(newQuery);
+    getMovies({ search: newQuery });
   };
 
   return (
@@ -30,7 +45,7 @@ function App() {
             placeholder="Avengers,Strat Wars..."
             onChange={handleChance}
           />
-
+          <input type="checkbox" checked={sort} onChange={handleSort} />
           <button type="submit">Shearch</button>
         </form>
         {error && <p style={{ color: "red" }}>{error}</p>}
